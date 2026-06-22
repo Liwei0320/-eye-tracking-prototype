@@ -1,0 +1,25 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor/system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Generated archives
+*.zip
+
+# Local logs
+*.log
+
+# Original nested working copy copied into src/usb for this repository
+2026-05-13/

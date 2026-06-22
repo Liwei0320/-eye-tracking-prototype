@@ -1,0 +1,108 @@
+{
+  "benchmark_configs": [
+    "left",
+    "all"
+  ],
+  "trials": 1,
+  "timestamp": "2026-06-08 17:03:36",
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "results": [
+    {
+      "config": "left",
+      "trial": 1,
+      "rmse_px": 466.26342048339586,
+      "mean_error_px": 428.1044505081177,
+      "p95_error_px": 579.8932464599609,
+      "detection_rate": 100.0,
+      "precision_std_px": 184.73807603203684,
+      "valid_samples": 500
+    },
+    {
+      "config": "all",
+      "trial": 1,
+      "rmse_px": 815.73883556092,
+      "mean_error_px": 520.2281617946625,
+      "p95_error_px": 1747.0802001953084,
+      "detection_rate": 100.0,
+      "precision_std_px": 628.3251606596956,
+      "valid_samples": 500
+    }
+  ],
+  "config_summary": {
+    "left": {
+      "rmse_px": {
+        "mean": 466.26342048339586,
+        "std": 0.0,
+        "values": [
+          466.26342048339586
+        ]
+      },
+      "mean_error_px": {
+        "mean": 428.1044505081177,
+        "std": 0.0,
+        "values": [
+          428.1044505081177
+        ]
+      },
+      "p95_error_px": {
+        "mean": 579.8932464599609,
+        "std": 0.0,
+        "values": [
+          579.8932464599609
+        ]
+      },
+      "precision_std_px": {
+        "mean": 184.73807603203684,
+        "std": 0.0,
+        "values": [
+          184.73807603203684
+        ]
+      },
+      "detection_rate": {
+        "mean": 100.0,
+        "std": 0.0,
+        "values": [
+          100.0
+        ]
+      }
+    },
+    "all": {
+      "rmse_px": {
+        "mean": 815.73883556092,
+        "std": 0.0,
+        "values": [
+          815.73883556092
+        ]
+      },
+      "mean_error_px": {
+        "mean": 520.2281617946625,
+        "std": 0.0,
+        "values": [
+          520.2281617946625
+        ]
+      },
+      "p95_error_px": {
+        "mean": 1747.0802001953084,
+        "std": 0.0,
+        "values": [
+          1747.0802001953084
+        ]
+      },
+      "precision_std_px": {
+        "mean": 628.3251606596956,
+        "std": 0.0,
+        "values": [
+          628.3251606596956
+        ]
+      },
+      "detection_rate": {
+        "mean": 100.0,
+        "std": 0.0,
+        "values": [
+          100.0
+        ]
+      }
+    }
+  }
+}

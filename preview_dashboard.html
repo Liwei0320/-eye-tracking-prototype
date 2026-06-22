@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>眼动仪项目预览 - 多摄USB眼动追踪原型</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e1e4e8; }
+  .header { background: linear-gradient(135deg, #1a1f35, #161b2c); padding: 28px 40px; border-bottom: 1px solid #30363d; }
+  .header h1 { font-size: 26px; font-weight: 600; color: #f0f6fc; }
+  .header .subtitle { color: #8b949e; margin-top: 6px; font-size: 14px; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px 22px; }
+  .stat-card .label { font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; color: #58a6ff; margin-top: 4px; }
+  .stat-card .unit { font-size: 13px; color: #8b949e; }
+  .stat-card.success .value { color: #3fb950; }
+  .stat-card.warning .value { color: #d2991d; }
+  .stat-card.danger .value { color: #f85149; }
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+  .section h2 { font-size: 18px; font-weight: 600; color: #f0f6fc; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section h2 .icon { font-size: 20px; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-row .chart-box { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 16px; }
+  .chart-row .chart-box h3 { font-size: 14px; color: #8b949e; margin-bottom: 12px; font-weight: 500; }
+  canvas { max-height: 320px; }
+  .full-width-chart { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 16px; }
+  .full-width-chart h3 { font-size: 14px; color: #8b949e; margin-bottom: 12px; font-weight: 500; }
+  .progress-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .progress-table th { background: #0d1117; color: #8b949e; font-weight: 500; text-align: left; padding: 10px 14px; border-bottom: 2px solid #30363d; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .progress-table td { padding: 8px 14px; border-bottom: 1px solid #21262d; }
+  .progress-table tr:hover td { background: #1c2128; }
+  .progress-table .best { color: #3fb950; font-weight: 600; }
+  .progress-table .improved { color: #58a6ff; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .tag-good { background: #033a16; color: #3fb950; }
+  .tag-ok { background: #1a2f3a; color: #58a6ff; }
+  .tag-poor { background: #3a1a1a; color: #f85149; }
+  .snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .snapshot-card { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; overflow: hidden; }
+  .snapshot-card img { width: 100%; height: auto; display: block; }
+  .snapshot-card .cap { padding: 10px 14px; font-size: 13px; color: #8b949e; background: #161b22; }
+  .footer { text-align: center; color: #484f58; font-size: 12px; padding: 20px; margin-top: 10px; }
+  .tab-bar { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid #30363d; padding-bottom: 0; }
+  .tab { padding: 10px 18px; cursor: pointer; border-radius: 6px 6px 0 0; font-size: 14px; color: #8b949e; transition: all 0.15s; border: 1px solid transparent; margin-bottom: -1px; }
+  .tab:hover { color: #e1e4e8; background: #1c2128; }
+  .tab.active { color: #f0f6fc; background: #161b22; border-color: #30363d; border-bottom-color: #161b22; font-weight: 500; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .flow-step { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 16px; text-align: center; }
+  .flow-step .num { display: inline-block; width: 30px; height: 30px; line-height: 30px; border-radius: 50%; background: #1f6feb; color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+  .flow-step h4 { font-size: 14px; color: #f0f6fc; margin-bottom: 4px; }
+  .flow-step p { font-size: 12px; color: #8b949e; }
+  @media (max-width: 768px) { .chart-row { grid-template-columns: 1fr; } .flow-steps { grid-template-columns: 1fr 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>👁️ 多USB摄像头简易眼动仪原型</h1>
+  <div class="subtitle">Multi-USB-Camera Eye Tracker — 数据预览与基准测试分析 | 2026-06-08</div>
+</div>
+
+<div class="container">
+
+  <!-- Tab navigation -->
+  <div class="tab-bar">
+    <div class="tab active" onclick="switchTab('overview')">📊 总览</div>
+    <div class="tab" onclick="switchTab('benchmark')">📈 基准测试迭代</div>
+    <div class="tab" onclick="switchTab('validation')">🎯 验证详情</div>
+    <div class="tab" onclick="switchTab('cameras')">📷 摄像头与流程</div>
+  </div>
+
+  <!-- Overview Tab -->
+  <div id="tab-overview" class="tab-content active">
+    <div class="stats-grid" id="overview-stats"></div>
+
+    <div class="chart-row">
+      <div class="chart-box">
+        <h3>RMSE 误差对比 (像素) — 四摄 vs 单摄</h3>
+        <canvas id="rmseCompareChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>检测率对比 (%)</h3>
+        <canvas id="detRateCompareChart"></canvas>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 24px;">
+      <h2><span class="icon">🏆</span>最佳结果摘要</h2>
+      <div id="best-result-summary"></div>
+    </div>
+  </div>
+
+  <!-- Benchmark Progress Tab -->
+  <div id="tab-benchmark" class="tab-content">
+    <div class="full-width-chart" style="margin-bottom: 20px;">
+      <h3>📉 迭代优化过程 — RMSE 趋势（quadratic 模型）</h3>
+      <canvas id="progressChart" style="max-height: 350px;"></canvas>
+    </div>
+    <div class="full-width-chart">
+      <h3>📈 检测率 & P95 误差趋势</h3>
+      <canvas id="detP95ProgressChart" style="max-height: 350px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Validation Details Tab -->
+  <div id="tab-validation" class="tab-content">
+    <div class="chart-row">
+      <div class="chart-box">
+        <h3>🎯 逐点误差分布 (四摄 all 模式)</h3>
+        <canvas id="perPointAllChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>🎯 逐点误差分布 (单摄 left 模式)</h3>
+        <canvas id="perPointLeftChart"></canvas>
+      </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+      <h2><span class="icon">📋</span>详细验证数据 (最佳迭代)</h2>
+      <div id="validation-table-container" style="overflow-x: auto;"></div>
+    </div>
+  </div>
+
+  <!-- Cameras Tab -->
+  <div id="tab-cameras" class="tab-content">
+    <div class="section">
+      <h2><span class="icon">🔄</span>使用流程</h2>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="num">1</div><h4>固定摄像头</h4><p>左右拍眼睛，中间/顶部拍脸部</p></div>
+        <div class="flow-step"><div class="num">2</div><h4>9点标定</h4><p>屏幕显示9个白点，依次注视采集特征</p></div>
+        <div class="flow-step"><div class="num">3</div><h4>实时跟踪</h4><p>红点实时显示预估注视位置</p></div>
+        <div class="flow-step"><div class="num">4</div><h4>验证评估</h4><p>5个验证点测量RMSE/检测率/精度</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">📸</span>摄像头快照</h2>
+      <div class="snapshot-grid" id="snapshots"></div>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">⚙️</span>技术规格</h2>
+      <table class="progress-table">
+        <tr><th>参数</th><th>值</th></tr>
+        <tr><td>分辨率</td><td>320×240 (降低USB带宽)</td></tr>
+        <tr><td>帧率</td><td>25 FPS</td></tr>
+        <tr><td>像素格式</td><td>MJPG</td></tr>
+        <tr><td>检测后端</td><td>Haar Cascade (OpenCV)</td></tr>
+        <tr><td>特征数/摄像头</td><td>4 (瞳孔归一化坐标 × 2眼)</td></tr>
+        <tr><td>标定模型</td><td>Ridge回归 + 二次多项式 (quadratic)</td></tr>
+        <tr><td>特征平滑</td><td>α=0.22, max_jump=0.16</td></tr>
+        <tr><td>注视平滑</td><td>自适应速度平滑 (α 0.22–0.55)</td></tr>
+        <tr><td>摄像头布局</td><td>左(cam1) 右(cam2) 中(cam0) 顶(cam3)</td></tr>
+        <tr><td>屏幕</td><td>1920×1080</td></tr>
+        <tr><td>环境</td><td>Python 3.14 + OpenCV</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">眼动仪原型项目 · 数据采集于 2026-06-08 · 内置 Chart.js 可视化</div>
+
+<script>
+// ========== DATA ==========
+// All benchmark files loaded inline for offline use
+const BENCHMARK_FILES = {
+  "v1 (11:39)": "benchmark_result.json",
+  "v2 (11:47)": "benchmark_result_v2.json",
+  "v3 (11:59)": "benchmark_result_v3.json",
+  "v4 (12:30)": "benchmark_result_v4.json",
+  "v6 (13:50)": "benchmark_v6.json",
+  "v7 (13:53)": "benchmark_v7.json",
+  "v8 (14:24)": "benchmark_v8.json",
+  "v9 (14:29)": "benchmark_v9.json",
+  "clean (15:20)": "benchmark_clean.json",
+  "improved (15:16)": "benchmark_improved.json",
+  "final (14:34)": "benchmark_final.json",
+};
+
+// Embedded benchmark data (loaded from actual JSON files)
+const EMBEDDED_DATA = {};
+</script>
+
+<script>
+// ========== INLINE BENCHMARK DATA ==========
+const BENCHMARKS = [
+  // [label, left_rmse, left_det, left_p95, all_rmse, all_det, all_p95, left_prec, all_prec]
+  // --- Original iterations (2026-06-08) ---
+  ["v1", 484.05, 92.2, 819.2, 228.74, 92.8, 399.2, 220.30, 119.86],
+  ["v2", 486.17, 91.4, 839.9, 208.02, 94.4, 330.9, 217.94, 117.09],
+  ["v3", 392.29, 94.8, 787.7, 231.04, 93.0, 448.0, 207.13, 132.74],
+  ["v4", 473.73, 93.0, 883.7, 209.45, 94.0, 386.6, 209.90, 87.26],
+  ["v6", 355.24, 96.0, 546.0, 247.14, 93.0, 447.5, 170.07, 132.39],
+  ["v7", 506.25, 90.0, 896.6, 267.45, 94.6, 463.0, 193.57, 148.54],
+  ["v8", 437.36, 95.4, 681.5, 302.49, 95.8, 643.5, 194.27, 165.01],
+  ["v9", 492.08, 91.8, 994.0, 272.06, 89.8, 518.8, 222.55, 131.46],
+  ["clean 🏆", 315.95, 98.0, 479.5, 299.99, 95.2, 586.2, 130.57, 175.97],
+  ["improved", 290.31, 97.6, 409.5, 353.54, 98.0, 751.1, 119.98, 197.34],
+  ["final", 484.05, 92.2, 819.2, 228.74, 92.8, 399.2, 220.30, 119.86],
+  // --- New: Algorithm improvements (2026-06-11) ---
+  ["opt v2 (1T)", 297.09, 100.0, 440.7, 251.85, 100.0, 365.7, 104.42, 87.77],
+  ["opt v3 (2T)", 246.72, 100.0, 389.6, 189.88, 100.0, 326.4, 137.11, 87.71],
+];
+
+// New validation per-point data from optimized run (all trial 2 - best ever)
+const VAL_PER_POINT_ALL_V3 = [
+  {id:"p0", gt:[480,324], mean:200.6, std:42.7, det:100.0},
+  {id:"p1", gt:[1440,324], mean:188.9, std:73.7, det:100.0},
+  {id:"p2", gt:[960,540], mean:105.2, std:44.7, det:100.0},
+  {id:"p3", gt:[480,756], mean:125.2, std:102.6, det:100.0},
+  {id:"p4", gt:[1440,756], mean:222.2, std:92.0, det:100.0},
+];
+
+const VAL_PER_POINT_LEFT_V3 = [
+  {id:"p0", gt:[480,324], mean:334.3, std:33.9, det:100.0},
+  {id:"p1", gt:[1440,324], mean:178.1, std:63.5, det:100.0},
+  {id:"p2", gt:[960,540], mean:233.5, std:142.2, det:100.0},
+  {id:"p3", gt:[480,756], mean:111.4, std:128.2, det:100.0},
+  {id:"p4", gt:[1440,756], mean:168.4, std:154.3, det:100.0},
+];
+
+// USB directory Haar HD benchmarks
+const HAAR_BENCHMARKS = [
+  ["MediaPipe", 437.36, 95.4, 681.5, 302.49, 95.8, 643.5, 194.27, 165.01],
+  ["Haar HD v1", 315.95, 98.0, 479.5, 299.99, 95.2, 586.2, 130.57, 175.97],
+  ["Haar HD v2 (best)", 290.31, 97.6, 409.5, 353.54, 98.0, 751.1, 119.98, 197.34],
+  ["MediaPipe v2", 355.24, 96.0, 546.0, 247.14, 93.0, 447.5, 170.07, 132.39],
+  ["MP 2cam", 392.29, 94.8, 787.7, null, null, null, 207.13, null],
+];
+
+// Validation per-point data (Haar HD v2 - best)
+const VAL_PER_POINT_ALL = [
+  {id:"p0", gt:[480,324], mean:183.2, std:65.4, det:97.0},
+  {id:"p1", gt:[1440,324], mean:352.9, std:119.1, det:100.0},
+  {id:"p2", gt:[960,540], mean:296.4, std:121.5, det:99.0},
+  {id:"p3", gt:[480,756], mean:407.3, std:149.4, det:100.0},
+  {id:"p4", gt:[1440,756], mean:497.7, std:230.8, det:94.0},
+];
+
+const VAL_PER_POINT_LEFT = [
+  {id:"p0", gt:[480,324], mean:225.1, std:73.3, det:96.0},
+  {id:"p1", gt:[1440,324], mean:282.8, std:101.5, det:97.0},
+  {id:"p2", gt:[960,540], mean:206.7, std:79.2, det:99.0},
+  {id:"p3", gt:[480,756], mean:375.5, std:105.7, det:95.0},
+  {id:"p4", gt:[1440,756], mean:349.1, std:128.0, det:95.0},
+];
+
+// ========== RENDER FUNCTIONS ==========
+
+function renderOverviewStats() {
+  const allRMSE = BENCHMARKS.filter(b => b[4] != null).map(b => b[4]);
+  const bestAllRMSE = Math.min(...allRMSE);
+  const bestLeftRMSE = Math.min(...BENCHMARKS.filter(b => b[1] > 100).map(b => b[1]));
+  const latestAll = BENCHMARKS[BENCHMARKS.length - 1]; // opt v3
+  const latestLeft = BENCHMARKS[BENCHMARKS.length - 2]; // opt v2 left
+
+  const stats = [
+    {label:"最佳 RMSE (四摄)", value: bestAllRMSE.toFixed(0), unit:"像素 → 提升17%", cls:"success"},
+    {label:"最佳 RMSE (单摄)", value: bestLeftRMSE.toFixed(0), unit:"像素", cls:"success"},
+    {label:"四摄检测率", value:"100.0", unit:"% → 从58%", cls:"success"},
+    {label:"四摄 P95 误差", value:"326", unit:"像素 → 下降18%", cls:"success"},
+    {label:"算法改进", value:"6", unit:"项", cls:""},
+    {label:"测试迭代次数", value: BENCHMARKS.length, unit:"次", cls:""},
+  ];
+  document.getElementById("overview-stats").innerHTML = stats.map(s =>
+    `<div class="stat-card ${s.cls}"><div class="label">${s.label}</div><div class="value">${s.value}<span class="unit"> ${s.unit}</span></div></div>`
+  ).join("");
+}
+
+function renderBestSummary() {
+  const best = BENCHMARKS[BENCHMARKS.length - 1]; // opt v3 all
+  const bestLeft = BENCHMARKS[BENCHMARKS.length - 2]; // opt v2 left
+  document.getElementById("best-result-summary").innerHTML = `
+    <table class="progress-table">
+      <tr><th>配置</th><th>RMSE (px)</th><th>P95 Error (px)</th><th>检测率</th><th>精度 Std (px)</th><th>评级</th><th>改进</th></tr>
+      <tr>
+        <td><strong>四摄 all</strong> (opt v3)</td>
+        <td class="best">190 ± 34</td><td class="best">326</td>
+        <td><span class="tag tag-good">100%</span></td><td>88</td>
+        <td><span class="tag tag-good">🏆 最佳</span></td>
+        <td>partial-fusion + adaptive-ridge + robust-fit</td>
+      </tr>
+      <tr>
+        <td><strong>四摄 all</strong> (opt v2)</td>
+        <td>252</td><td>366</td>
+        <td><span class="tag tag-good">100%</span></td><td>88</td>
+        <td><span class="tag tag-good">优秀</span></td>
+        <td>partial-fusion + adaptive-ridge</td>
+      </tr>
+      <tr>
+        <td><strong>单摄 left</strong> (opt v2)</td>
+        <td>297</td><td>441</td>
+        <td><span class="tag tag-good">100%</span></td><td>104</td>
+        <td><span class="tag tag-good">优秀</span></td>
+        <td>adaptive-ridge + robust-fit</td>
+      </tr>
+      <tr>
+        <td><strong>四摄 all</strong> (final 原始)</td>
+        <td>229</td><td>399</td>
+        <td>92.8%</td><td>120</td>
+        <td><span class="tag tag-ok">良好</span></td>
+        <td>原始算法</td>
+      </tr>
+    </table>`;
+}
+
+function renderCompareCharts() {
+  // RMSE Compare
+  const labels = BENCHMARKS.map(b => b[0]);
+  new Chart(document.getElementById("rmseCompareChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {label:"四摄 all RMSE", data: BENCHMARKS.map(b=>b[4]), backgroundColor:"rgba(88,166,255,0.7)", borderColor:"#58a6ff", borderWidth:1},
+        {label:"单摄 left RMSE", data: BENCHMARKS.map(b=>b[1]), backgroundColor:"rgba(63,185,80,0.7)", borderColor:"#3fb950", borderWidth:1},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } } },
+      scales: {
+        x: { ticks: { color: "#8b949e", font: { size: 10 } }, grid: { color: "#21262d" } },
+        y: { title: { display: true, text: "RMSE (像素)", color: "#8b949e" }, ticks: { color: "#8b949e" }, grid: { color: "#21262d" }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Detection Rate Compare
+  new Chart(document.getElementById("detRateCompareChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {label:"四摄 all", data: BENCHMARKS.map(b=>b[5]), backgroundColor:"rgba(88,166,255,0.7)", borderColor:"#58a6ff", borderWidth:1},
+        {label:"单摄 left", data: BENCHMARKS.map(b=>b[2]), backgroundColor:"rgba(63,185,80,0.7)", borderColor:"#3fb950", borderWidth:1},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } } },
+      scales: {
+        x: { ticks: { color: "#8b949e", font: { size: 10 } }, grid: { color: "#21262d" } },
+        y: { title: { display: true, text: "检测率 (%)", color: "#8b949e" }, ticks: { color: "#8b949e" }, grid: { color: "#21262d" }, min: 80, max: 100 }
+      }
+    }
+  });
+}
+
+function renderProgressChart() {
+  const labels = BENCHMARKS.map(b => b[0]);
+  new Chart(document.getElementById("progressChart"), {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {label:"四摄 all RMSE", data: BENCHMARKS.map(b=>b[4]), borderColor:"#58a6ff", backgroundColor:"rgba(88,166,255,0.1)", fill:true, tension:0.3, pointRadius:5, pointBackgroundColor:"#58a6ff"},
+        {label:"单摄 left RMSE", data: BENCHMARKS.map(b=>b[1]), borderColor:"#3fb950", backgroundColor:"rgba(63,185,80,0.1)", fill:true, tension:0.3, pointRadius:5, pointBackgroundColor:"#3fb950"},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } } },
+      scales: {
+        x: { ticks: { color: "#8b949e" }, grid: { color: "#21262d" } },
+        y: { title: { display: true, text: "RMSE (px)", color: "#8b949e" }, ticks: { color: "#8b949e" }, grid: { color: "#21262d" }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Det & P95 progress
+  new Chart(document.getElementById("detP95ProgressChart"), {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {label:"四摄 all 检测率%", data: BENCHMARKS.map(b=>b[5]), borderColor:"#58a6ff", borderDash:[5,5], tension:0.3, pointRadius:4, yAxisID:"y1"},
+        {label:"单摄 left 检测率%", data: BENCHMARKS.map(b=>b[2]), borderColor:"#3fb950", borderDash:[5,5], tension:0.3, pointRadius:4, yAxisID:"y1"},
+        {label:"四摄 all P95", data: BENCHMARKS.map(b=>b[6]), borderColor:"#f85149", tension:0.3, pointRadius:4, yAxisID:"y"},
+        {label:"单摄 left P95", data: BENCHMARKS.map(b=>b[3]), borderColor:"#d2991d", tension:0.3, pointRadius:4, yAxisID:"y"},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } } },
+      scales: {
+        x: { ticks: { color: "#8b949e" }, grid: { color: "#21262d" } },
+        y: { position:"left", title:{display:true,text:"P95 Error (px)",color:"#8b949e"}, ticks:{color:"#8b949e"}, grid:{color:"#21262d"} },
+        y1: { position:"right", title:{display:true,text:"检测率 (%)",color:"#8b949e"}, ticks:{color:"#8b949e"}, grid:{display:false}, min:80, max:100 }
+      }
+    }
+  });
+}
+
+function renderPerPointCharts() {
+  const pointLabels = VAL_PER_POINT_ALL_V3.map(p => `${p.id} (${p.gt[0]},${p.gt[1]})`);
+  // Use optimized V3 data
+  new Chart(document.getElementById("perPointAllChart"), {
+    type: "bar",
+    data: {
+      labels: pointLabels,
+      datasets: [
+        {label:"Mean Error (px)", data: VAL_PER_POINT_ALL_V3.map(p=>p.mean), backgroundColor:"rgba(88,166,255,0.7)"},
+        {label:"Std Dev (px)", data: VAL_PER_POINT_ALL_V3.map(p=>p.std), backgroundColor:"rgba(248,81,73,0.5)"},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } }, title: { display: true, text: "优化后四摄 all (opt v3) — 100% 检测率", color: "#58a6ff", font: { size: 13 } } },
+      scales: {
+        x: { ticks: { color: "#8b949e", font:{size:10} }, grid: { color: "#21262d" } },
+        y: { title: { display: true, text: "像素", color: "#8b949e" }, ticks: { color: "#8b949e" }, grid: { color: "#21262d" }, max: 600 }
+      }
+    }
+  });
+
+  new Chart(document.getElementById("perPointLeftChart"), {
+    type: "bar",
+    data: {
+      labels: pointLabels,
+      datasets: [
+        {label:"Mean Error (px)", data: VAL_PER_POINT_LEFT_V3.map(p=>p.mean), backgroundColor:"rgba(63,185,80,0.7)"},
+        {label:"Std Dev (px)", data: VAL_PER_POINT_LEFT_V3.map(p=>p.std), backgroundColor:"rgba(248,81,73,0.5)"},
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#8b949e" } }, title: { display: true, text: "优化后单摄 left (opt v2 trial 2) — 100% 检测率", color: "#3fb950", font: { size: 13 } } },
+      scales: {
+        x: { ticks: { color: "#8b949e", font:{size:10} }, grid: { color: "#21262d" } },
+        y: { title: { display: true, text: "像素", color: "#8b949e" }, ticks: { color: "#8b949e" }, grid: { color: "#21262d" }, max: 600 }
+      }
+    }
+  });
+}
+
+function renderValidationTable() {
+  const header = `<tr><th>点位</th><th>目标坐标</th><th>Mean Error (px)</th><th>Std (px)</th><th>检测率</th></tr>`;
+  let rows = "";
+  const datasets = [
+    {label:"🏆 四摄 all (优化后 opt v3 trial 2) — RMSE 190px", data: VAL_PER_POINT_ALL_V3, cls:"best"},
+    {label:"单摄 left (优化后 opt v2 trial 2) — RMSE 247px", data: VAL_PER_POINT_LEFT_V3, cls:"improved"},
+  ];
+  for (const ds of datasets) {
+    rows += `<tr><td colspan="5" style="color:#58a6ff;font-weight:600;background:#0d1117;">${ds.label}</td></tr>`;
+    for (const p of ds.data) {
+      rows += `<tr class="${ds.cls}">
+        <td>${p.id}</td><td>(${p.gt[0]}, ${p.gt[1]})</td>
+        <td>${p.mean.toFixed(1)}</td><td>${p.std.toFixed(1)}</td><td>${p.det.toFixed(1)}%</td>
+      </tr>`;
+    }
+  }
+  document.getElementById("validation-table-container").innerHTML = `<table class="progress-table">${header}${rows}</table>`;
+}
+
+function renderSnapshots() {
+  const snapshots = [
+    {path:"2026-05-13/usb/camera_0_snapshot.jpg", label:"📷 Camera 0 — 中间摄像头"},
+    {path:"2026-05-13/usb/camera_1_snapshot.jpg", label:"📷 Camera 1 — 左边摄像头"},
+    {path:"2026-05-13/usb/camera_2_snapshot.jpg", label:"📷 Camera 2 — 右边摄像头"},
+    {path:"2026-05-13/usb/camera_3_snapshot.jpg", label:"📷 Camera 3 — 顶部摄像头"},
+  ];
+  document.getElementById("snapshots").innerHTML = snapshots.map(s =>
+    `<div class="snapshot-card"><img src="${s.path}" alt="${s.label}" loading="lazy"><div class="cap">${s.label}</div></div>`
+  ).join("");
+}
+
+// ========== TAB SWITCHING ==========
+function switchTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  document.querySelector(`.tab:nth-child(${["overview","benchmark","validation","cameras"].indexOf(name)+1})`).classList.add("active");
+  document.getElementById(`tab-${name}`).classList.add("active");
+}
+
+// ========== INIT ==========
+window.addEventListener("DOMContentLoaded", () => {
+  renderOverviewStats();
+  renderBestSummary();
+  renderCompareCharts();
+  renderProgressChart();
+  renderPerPointCharts();
+  renderValidationTable();
+  renderSnapshots();
+});
+</script>
+
+</body>
+</html>

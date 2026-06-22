@@ -1,0 +1,983 @@
+{
+  "config": "all",
+  "camera_indexes": [
+    1,
+    2,
+    0,
+    3
+  ],
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "calibration_file": "calibration.json",
+  "samples_per_point": 20,
+  "settle_seconds": 0.8,
+  "validate_points": [
+    {
+      "id": "p0",
+      "gt_x": 480,
+      "gt_y": 324
+    },
+    {
+      "id": "p1",
+      "gt_x": 1440,
+      "gt_y": 324
+    },
+    {
+      "id": "p2",
+      "gt_x": 960,
+      "gt_y": 540
+    },
+    {
+      "id": "p3",
+      "gt_x": 480,
+      "gt_y": 756
+    },
+    {
+      "id": "p4",
+      "gt_x": 1440,
+      "gt_y": 756
+    }
+  ],
+  "results": [
+    {
+      "point_id": "p0",
+      "gt_x": 480,
+      "gt_y": 324,
+      "predictions": [
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "timestamps": [
+        0.06644964218139648,
+        0.14783406257629395,
+        0.22986793518066406,
+        0.3118560314178467,
+        0.39592957496643066,
+        0.46250057220458984,
+        0.5324909687042236,
+        0.6196331977844238,
+        0.6932036876678467,
+        0.7768712043762207,
+        0.852135181427002,
+        0.9190700054168701,
+        0.9960505962371826,
+        1.0737507343292236,
+        1.1545658111572266,
+        1.2343719005584717,
+        1.3146843910217285,
+        1.3948440551757812,
+        1.4602129459381104,
+        1.539954662322998
+      ],
+      "detection_ok": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "active_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prediction_sources": [
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active"
+      ]
+    },
+    {
+      "point_id": "p1",
+      "gt_x": 1440,
+      "gt_y": 324,
+      "predictions": [
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "timestamps": [
+        0.07029914855957031,
+        0.15060877799987793,
+        0.23063874244689941,
+        0.31677842140197754,
+        0.39746832847595215,
+        0.4754674434661865,
+        0.5457808971405029,
+        0.6228384971618652,
+        0.701127290725708,
+        0.7781834602355957,
+        0.855663537979126,
+        0.931720495223999,
+        1.0129797458648682,
+        1.0799822807312012,
+        1.156527042388916,
+        1.2376878261566162,
+        1.3156697750091553,
+        1.3953123092651367,
+        1.4753365516662598,
+        1.5540366172790527
+      ],
+      "detection_ok": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "active_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prediction_sources": [
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active"
+      ]
+    },
+    {
+      "point_id": "p2",
+      "gt_x": 960,
+      "gt_y": 540,
+      "predictions": [
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "timestamps": [
+        0.06482172012329102,
+        0.14622855186462402,
+        0.21557879447937012,
+        0.2984304428100586,
+        0.3774261474609375,
+        0.45020365715026855,
+        0.5311026573181152,
+        0.6183931827545166,
+        0.6998856067657471,
+        0.7629101276397705,
+        0.837315559387207,
+        0.913710355758667,
+        0.9957034587860107,
+        1.079369068145752,
+        1.1545827388763428,
+        1.236069917678833,
+        1.3016140460968018,
+        1.3868446350097656,
+        1.4598519802093506,
+        1.5369372367858887
+      ],
+      "detection_ok": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "active_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prediction_sources": [
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active"
+      ]
+    },
+    {
+      "point_id": "p3",
+      "gt_x": 480,
+      "gt_y": 756,
+      "predictions": [
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "timestamps": [
+        0.06913948059082031,
+        0.14581942558288574,
+        0.22868824005126953,
+        0.3086874485015869,
+        0.37385129928588867,
+        0.4544985294342041,
+        0.5300438404083252,
+        0.6124002933502197,
+        0.694272518157959,
+        0.7735598087310791,
+        0.8425533771514893,
+        0.9175980091094971,
+        1.000669240951538,
+        1.0781686305999756,
+        1.1560828685760498,
+        1.2328698635101318,
+        1.3016891479492188,
+        1.382690668106079,
+        1.462883710861206,
+        1.53975248336792
+      ],
+      "detection_ok": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "active_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prediction_sources": [
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active"
+      ]
+    },
+    {
+      "point_id": "p4",
+      "gt_x": 1440,
+      "gt_y": 756,
+      "predictions": [
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "timestamps": [
+        0.06801271438598633,
+        0.14903879165649414,
+        0.23102378845214844,
+        0.316509485244751,
+        0.38686251640319824,
+        0.4573976993560791,
+        0.5370314121246338,
+        0.6155693531036377,
+        0.6927692890167236,
+        0.7717695236206055,
+        0.840219259262085,
+        0.9208950996398926,
+        1.001807451248169,
+        1.0760948657989502,
+        1.1601016521453857,
+        1.2404601573944092,
+        1.3213143348693848,
+        1.3838355541229248,
+        1.4633512496948242,
+        1.5384910106658936
+      ],
+      "detection_ok": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "active_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prediction_sources": [
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active",
+        "insufficient_active"
+      ]
+    }
+  ],
+  "metrics": {
+    "rmse_px": NaN,
+    "rmse_deg": NaN,
+    "mean_error_px": NaN,
+    "mean_error_deg": NaN,
+    "p95_error_px": NaN,
+    "p95_error_deg": NaN,
+    "detection_rate": 0.0,
+    "precision_std_px": NaN,
+    "valid_samples": 0,
+    "total_samples": 100,
+    "per_point": [
+      {
+        "point_id": "p0",
+        "gt_x": 480,
+        "gt_y": 324,
+        "mean_error_px": null,
+        "std_px": null,
+        "rmse_px": null,
+        "p95_px": null,
+        "detection_rate": 0.0
+      },
+      {
+        "point_id": "p1",
+        "gt_x": 1440,
+        "gt_y": 324,
+        "mean_error_px": null,
+        "std_px": null,
+        "rmse_px": null,
+        "p95_px": null,
+        "detection_rate": 0.0
+      },
+      {
+        "point_id": "p2",
+        "gt_x": 960,
+        "gt_y": 540,
+        "mean_error_px": null,
+        "std_px": null,
+        "rmse_px": null,
+        "p95_px": null,
+        "detection_rate": 0.0
+      },
+      {
+        "point_id": "p3",
+        "gt_x": 480,
+        "gt_y": 756,
+        "mean_error_px": null,
+        "std_px": null,
+        "rmse_px": null,
+        "p95_px": null,
+        "detection_rate": 0.0
+      },
+      {
+        "point_id": "p4",
+        "gt_x": 1440,
+        "gt_y": 756,
+        "mean_error_px": null,
+        "std_px": null,
+        "rmse_px": null,
+        "p95_px": null,
+        "detection_rate": 0.0
+      }
+    ]
+  },
+  "timestamp": "2026-06-15 15:48:07"
+}

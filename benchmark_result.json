@@ -1,0 +1,108 @@
+{
+  "benchmark_configs": [
+    "left",
+    "all"
+  ],
+  "trials": 1,
+  "timestamp": "2026-06-08 11:39:32",
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "results": [
+    {
+      "config": "left",
+      "trial": 1,
+      "rmse_px": 412.8162059681128,
+      "mean_error_px": 379.3988924382807,
+      "p95_error_px": 649.695306396484,
+      "detection_rate": 91.0,
+      "precision_std_px": 162.7074071040198,
+      "valid_samples": 455
+    },
+    {
+      "config": "all",
+      "trial": 1,
+      "rmse_px": 371.1909064650678,
+      "mean_error_px": 342.7939261450757,
+      "p95_error_px": 552.3824829101562,
+      "detection_rate": 93.4,
+      "precision_std_px": 142.3903551523175,
+      "valid_samples": 467
+    }
+  ],
+  "config_summary": {
+    "left": {
+      "rmse_px": {
+        "mean": 412.8162059681128,
+        "std": 0.0,
+        "values": [
+          412.8162059681128
+        ]
+      },
+      "mean_error_px": {
+        "mean": 379.3988924382807,
+        "std": 0.0,
+        "values": [
+          379.3988924382807
+        ]
+      },
+      "p95_error_px": {
+        "mean": 649.695306396484,
+        "std": 0.0,
+        "values": [
+          649.695306396484
+        ]
+      },
+      "precision_std_px": {
+        "mean": 162.7074071040198,
+        "std": 0.0,
+        "values": [
+          162.7074071040198
+        ]
+      },
+      "detection_rate": {
+        "mean": 91.0,
+        "std": 0.0,
+        "values": [
+          91.0
+        ]
+      }
+    },
+    "all": {
+      "rmse_px": {
+        "mean": 371.1909064650678,
+        "std": 0.0,
+        "values": [
+          371.1909064650678
+        ]
+      },
+      "mean_error_px": {
+        "mean": 342.7939261450757,
+        "std": 0.0,
+        "values": [
+          342.7939261450757
+        ]
+      },
+      "p95_error_px": {
+        "mean": 552.3824829101562,
+        "std": 0.0,
+        "values": [
+          552.3824829101562
+        ]
+      },
+      "precision_std_px": {
+        "mean": 142.3903551523175,
+        "std": 0.0,
+        "values": [
+          142.3903551523175
+        ]
+      },
+      "detection_rate": {
+        "mean": 93.4,
+        "std": 0.0,
+        "values": [
+          93.4
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "benchmark_configs": [
+    "left",
+    "all"
+  ],
+  "trials": 1,
+  "timestamp": "2026-06-08 11:47:53",
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "results": [
+    {
+      "config": "left",
+      "trial": 1,
+      "rmse_px": 441.05068716353367,
+      "mean_error_px": 395.1038579452277,
+      "p95_error_px": 741.3755249023436,
+      "detection_rate": 89.8,
+      "precision_std_px": 196.00676030234922,
+      "valid_samples": 449
+    },
+    {
+      "config": "all",
+      "trial": 1,
+      "rmse_px": 261.1696534454871,
+      "mean_error_px": 242.4727402261046,
+      "p95_error_px": 402.0702255249023,
+      "detection_rate": 97.6,
+      "precision_std_px": 97.03895160233235,
+      "valid_samples": 488
+    }
+  ],
+  "config_summary": {
+    "left": {
+      "rmse_px": {
+        "mean": 441.05068716353367,
+        "std": 0.0,
+        "values": [
+          441.05068716353367
+        ]
+      },
+      "mean_error_px": {
+        "mean": 395.1038579452277,
+        "std": 0.0,
+        "values": [
+          395.1038579452277
+        ]
+      },
+      "p95_error_px": {
+        "mean": 741.3755249023436,
+        "std": 0.0,
+        "values": [
+          741.3755249023436
+        ]
+      },
+      "precision_std_px": {
+        "mean": 196.00676030234922,
+        "std": 0.0,
+        "values": [
+          196.00676030234922
+        ]
+      },
+      "detection_rate": {
+        "mean": 89.8,
+        "std": 0.0,
+        "values": [
+          89.8
+        ]
+      }
+    },
+    "all": {
+      "rmse_px": {
+        "mean": 261.1696534454871,
+        "std": 0.0,
+        "values": [
+          261.1696534454871
+        ]
+      },
+      "mean_error_px": {
+        "mean": 242.4727402261046,
+        "std": 0.0,
+        "values": [
+          242.4727402261046
+        ]
+      },
+      "p95_error_px": {
+        "mean": 402.0702255249023,
+        "std": 0.0,
+        "values": [
+          402.0702255249023
+        ]
+      },
+      "precision_std_px": {
+        "mean": 97.03895160233235,
+        "std": 0.0,
+        "values": [
+          97.03895160233235
+        ]
+      },
+      "detection_rate": {
+        "mean": 97.6,
+        "std": 0.0,
+        "values": [
+          97.6
+        ]
+      }
+    }
+  }
+}

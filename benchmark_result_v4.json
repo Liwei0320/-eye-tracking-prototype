@@ -1,0 +1,12 @@
+{
+  "benchmark_configs": [
+    "left",
+    "all"
+  ],
+  "trials": 1,
+  "timestamp": "2026-06-08 12:30:27",
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "results": [],
+  "config_summary": {}
+}
